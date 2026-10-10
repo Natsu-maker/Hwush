@@ -1,0 +1,46 @@
+name: Build Hwush APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Unpack project
+        run: unzip -q hwush.zip -d project
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.7"
+
+      - name: Build release APK
+        working-directory: project
+        run: gradle :app:assembleRelease --no-daemon --stacktrace
+
+      - name: Keep APK as a download
+        uses: actions/upload-artifact@v4
+        with:
+          name: Hwush-APK
+          path: project/app/build/outputs/apk/release/*.apk
+
+      - name: Publish APK on the Releases page
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Hwush build ${{ github.run_number }}
+          files: project/app/build/outputs/apk/release/*.apk
