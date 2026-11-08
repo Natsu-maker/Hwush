@@ -1,6 +1,6 @@
 # Hwush
 
-An offline music player for Android, with a fluid animated look, a built-in turntable and a loop-based music studio.
+An offline music player for Android, with a fluid animated look, a built-in turntable and an audio editor.
 
 Hwush plays the music already on your phone. No account, no ads, no tracking. The only thing that ever uses the internet is the optional lyrics search.
 
@@ -9,7 +9,7 @@ Hwush plays the music already on your phone. No account, no ads, no tracking. Th
 - Library by songs, albums, artists, album artists, composers, genres, years and folders, with duplicate finder, smart playlists and a recycle bin
 - Gapless playback and a true crossfade between songs
 - Queue you can drag to reorder, save and undo
-- Synced lyrics (`.lrc`) with word-by-word karaoke, a full-screen lyrics view, lyric image cards and floating lyrics over other apps
+- Synced lyrics (`.lrc`) with word-by-word karaoke, a full-screen lyrics view, lyric image cards and lyrics fading in behind the app
 - Find lyrics online from inside the app and save them to the song
 - Ten-band precision equalizer, saved per album or artist, plus balance, mono, spatial sound and per-song volume and speed
 - Speed and pitch sliders, A-B loop, bookmarks, ReplayGain, sleep timer and audiobook/podcast mode
@@ -21,23 +21,26 @@ Hwush plays the music already on your phone. No account, no ads, no tracking. Th
 
 ## Fluid background
 
-The colours of the playing song flow behind every screen. Drag a finger to push them around, and they swell with the beat. In Settings you can pick the style (clouds, lava lamp, marble), speed, darkness, glow orbs, sparkle, and switch it off or limit it to playback to save battery.
+The colours of the playing song flow behind every screen. Drag a finger to push them around. In Settings you can pick the style (clouds, lava lamp, marble), speed, darkness, glow orbs, sparkle, and switch it off or limit it to playback to save battery.
 
 ## Turntables
 
 Two decks you can scratch with a finger, a crossfader, filters, echo, stutter, reverse and cut buttons, and a 4x4 pad grid with 12 drum sounds and 4 chop pads cut from your songs. Record the performance as a `.wav`.
 
-## Studio
+## Audio editor
 
-A separate mode (Browse → Studio) for making beats and loops, laid out like a loop-based music maker:
+A timeline editor (Browse → Audio editor) for working with your songs:
 
-- **Channel rack** with drum sounds, synths and pieces of your own songs
-- **Piano roll** with snap, chords, scales and velocity
-- **Patterns** and a **playlist** that arranges them along a timeline
-- **Mixer** with 8 tracks and a master, faders, meters, pan, mute, solo and three effect slots each (filter, delay, reverb, drive, bit crusher)
-- Export to `.wav`
+- Six tracks of clips from your songs. Move, split, trim, copy, fade and change the speed of clips
+- Match one song's tempo to another, and read a song's tempo, energy and loudness
+- Split a clip into vocals, instruments and bass. This is done on the phone from the stereo picture and pitch, so it is rougher than an AI service
+- Mix the tracks with volume, pan, mute and solo, and export to `.wav`
 
-The player and Studio are kept apart. Opening Studio pauses the player.
+The editor works on a copy in memory of up to about two and a half minutes per song, and does not save projects yet. Export before you leave.
+
+## Wallpaper and lyrics behind the app
+
+Pick your own picture, or the fluid colours of the playing song, as the background of the whole app. The bars and mini player are see-through. While a song with timed lyrics plays, one line at a time fades in behind the app.
 
 ## Building
 
@@ -54,7 +57,7 @@ To build locally instead, open the project in Android Studio, or run `./gradlew 
 - Kotlin 2.0, Jetpack Compose (Material 3), Media3 / ExoPlayer
 - minSdk 26, targetSdk 34, package `com.hwush.player`
 - All settings and library data live in a single JSON store on the device
-- Turntables and Studio mix their own audio through `AudioTrack`; the player uses ExoPlayer
+- Turntables and the audio editor mix their own audio through `AudioTrack`; the player uses ExoPlayer
 - Visuals are drawn on Canvas, so they run on Android 8 to 11 as well as newer versions
 
 ## Privacy
@@ -63,4 +66,4 @@ Everything stays on your device. The one network feature is lyrics search, which
 
 ## Status
 
-Hwush is a personal project under active development. Some parts, especially Studio, are young and may have rough edges.
+Hwush is a personal project under active development. Some parts, especially the audio editor, are young and may have rough edges.
