@@ -1,100 +1,66 @@
 # Hwush
 
-A native Android music player that works fully offline. No ads, no tracking, no account, no internet needed.
+An offline music player for Android, with a fluid animated look, a built-in turntable and a loop-based music studio.
 
-Hwush plays the music already on your phone and cares about the things that make a player feel good to use: clean tags and covers even when your files are named `19283728492.flac`, synced lyrics, a lock screen player, a glassy now-playing screen, and smooth animations.
+Hwush plays the music already on your phone. No account, no ads, no tracking. The only thing that ever uses the internet is the optional lyrics search.
 
-> Hwush is a young, actively developed project. It is built and tested by one person on a phone, so expect rough edges. Bug reports are very welcome.
+## Player
 
-## Download
+- Library by songs, albums, artists, album artists, composers, genres, years and folders, with duplicate finder, smart playlists and a recycle bin
+- Gapless playback and a true crossfade between songs
+- Queue you can drag to reorder, save and undo
+- Synced lyrics (`.lrc`) with word-by-word karaoke, a full-screen lyrics view, lyric image cards and floating lyrics over other apps
+- Find lyrics online from inside the app and save them to the song
+- Ten-band precision equalizer, saved per album or artist, plus balance, mono, spatial sound and per-song volume and speed
+- Speed and pitch sliders, A-B loop, bookmarks, ReplayGain, sleep timer and audiobook/podcast mode
+- Auto DJ that builds sets by tempo and energy
+- Notification and lock screen controls, widgets, a quick settings tile, Android Auto browsing, car mode and an alarm clock
+- Listening stats, Wrapped, achievements and goals
+- Tag editing, file renaming and ringtone cutting
+- A **What's new** page with every update
 
-Get the latest APK from the [Releases](../../releases) page, open it on your phone and allow "install from this source" when Android asks.
+## Fluid background
 
-Requires Android 8.0 or newer. Phones and tablets are supported, and tablets in landscape get their own layout with the player always visible.
+The colours of the playing song flow behind every screen. Drag a finger to push them around, and they swell with the beat. In Settings you can pick the style (clouds, lava lamp, marble), speed, darkness, glow orbs, sparkle, and switch it off or limit it to playback to save battery.
 
-Updates install over the previous version and keep your playlists, favourites and settings.
+## Turntables
 
-## Features
+Two decks you can scratch with a finger, a crossfader, filters, echo, stutter, reverse and cut buttons, and a 4x4 pad grid with 12 drum sounds and 4 chop pads cut from your songs. Record the performance as a `.wav`.
 
-**Library**
-- Songs, albums, artists, genres, years and a folder tree you can browse
-- Search, sorting, and hiding songs or whole folders
-- Duplicate finder
-- Ratings, favourites and multi-select
-- Edit title, artist, album and cover inside Hwush (your audio files are never modified)
-- Home screen with recently played, most played and recently added, with sections you can reorder or hide
-- Bottom tabs you can reorder or hide
+## Studio
 
-**Playlists**
-- Your own playlists with custom cover images
-- Smart playlists that fill themselves from rules you choose (rating, plays, genre, artist, recently added, not played for a while)
-- Pin playlists to the top
-- Grid or list view
+A separate mode (Browse → Studio) for making beats and loops, laid out like a loop-based music maker:
 
-**Playback**
-- Gapless playback, queue editing, shuffle and repeat
-- Speed and pitch controls that work independently, with no chipmunk effect
-- Equalizer, bass boost and loudness, with per-song sound settings
-- ReplayGain volume normalising
-- Fade between songs, and an experimental overlapping crossfade
-- Sleep timer
-- A-B loop and bookmarks inside a song
-- Remembers where you stopped in long tracks
-- Optional shake to skip and Bluetooth or headphone auto-resume
+- **Channel rack** with drum sounds, synths and pieces of your own songs
+- **Piano roll** with snap, chords, scales and velocity
+- **Patterns** and a **playlist** that arranges them along a timeline
+- **Mixer** with 8 tracks and a master, faders, meters, pan, mute, solo and three effect slots each (filter, delay, reverb, drive, bit crusher)
+- Export to `.wav`
 
-**Lyrics**
-- Synced `.lrc` lyrics with a karaoke style highlight
-- Pick a `.lrc` file per song, or a lyrics folder
-- Built-in lyrics editor with a "stamp line" button for timing
-- Share lyrics as a picture with the cover
+The player and Studio are kept apart. Opening Studio pauses the player.
 
-**Looks**
-- Accent colours from your wallpaper, the album art, or your own pick
-- Light, dark and pure black themes, plus Classic, Rich and Mono surface styles
-- Glassy now-playing screen with a blurred cover, a reflection and an adjustable glass strength
-- Optional visualizer, spinning disc cover and car mode
-- Custom bundled fonts and an opening animation
-- Gestures: swipe the cover to skip, double-tap to play or pause, swipe song rows to queue them
+## Building
 
-**Everywhere else**
-- Own notification with cover and controls
-- Lock screen player
-- Home screen widgets in a bar and a big square size
-- Share songs to other apps
-- Ringtone cutter that saves a clip you can set as your ringtone
-- Listening stats and a "wrapped" style story of your most played music
-- Backup and restore of your playlists and settings
+Hwush has no local build step. A GitHub Actions workflow builds a signed release APK.
 
-## Permissions
+1. Put `hwush.zip` in the repository. The project files must be at the top level of the zip.
+2. Push. The workflow unzips it into `project/` and builds.
+3. Download the APK from the workflow run.
 
-| Permission | Why |
-| --- | --- |
-| Audio files (read media audio) | To find and play your music |
-| Notifications | To show the playback controls |
-| Display over other apps | Only for the lock screen player on Android 10 and newer |
-| Microphone (record audio) | Only if you switch on the visualizer. Android uses this permission for the audio visualizer API. Hwush only reads the audio it is playing and never records anything |
+To build locally instead, open the project in Android Studio, or run `./gradlew assembleRelease`. Signing uses `app/hwush.jks`.
 
-Hwush has no internet permission and sends nothing anywhere.
+## Technical notes
 
-## Building from source
+- Kotlin 2.0, Jetpack Compose (Material 3), Media3 / ExoPlayer
+- minSdk 26, targetSdk 34, package `com.hwush.player`
+- All settings and library data live in a single JSON store on the device
+- Turntables and Studio mix their own audio through `AudioTrack`; the player uses ExoPlayer
+- Visuals are drawn on Canvas, so they run on Android 8 to 11 as well as newer versions
 
-The project is a standard Android Gradle project written in Kotlin with Jetpack Compose and Media3.
+## Privacy
 
-- Kotlin 2.0, Jetpack Compose, Media3 (ExoPlayer and MediaSession)
-- `minSdk` 26, `targetSdk` and `compileSdk` 34
+Everything stays on your device. The one network feature is lyrics search, which sends the song title and artist to [LRCLIB](https://lrclib.net) when you ask for it. Hwush asks for audio access to read your music, and the internet permission only for that search.
 
-This repository builds the APK with GitHub Actions. Upload the project zip, the workflow unpacks it, builds a release APK and publishes it on the Releases page.
+## Status
 
-To build locally: open the project in Android Studio, or run
-
-```
-gradle :app:assembleRelease
-```
-
-## Support
-
-Hwush is free. If you like it and want to say thanks, you can [buy me a coffee on Ko-fi](https://ko-fi.com/hwush).
-
-## Feedback
-
-Found a bug or have an idea? Open an issue on this repository. Please include your Android version and phone model.
+Hwush is a personal project under active development. Some parts, especially Studio, are young and may have rough edges.
