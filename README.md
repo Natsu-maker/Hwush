@@ -25,7 +25,16 @@ The colours of the playing song flow behind every screen. Drag a finger to push 
 
 ## Turntables
 
-Two decks you can scratch with a finger, a crossfader, filters, echo, stutter, reverse and cut buttons, and a 4x4 pad grid with 12 drum sounds and 4 chop pads cut from your songs. Record the performance as a `.wav`.
+Two decks and a mixer, built like the real thing:
+
+- **Decks:** a grooved record with a strobe ring and a tonearm, 33, 45 and 78 rpm, a pitch fader (8, 16 or 50 percent range), key lock, nudge, adjustable spin-up and brake, reverse and a held cut button. Grab the record to scratch
+- **Beat tools:** speed in BPM with a beat light, a waveform you can tap to drop the needle, a nudgeable beat grid, quantize, and Sync to match the other deck
+- **Cues and loops:** eight hot cues per deck, in/out loops, automatic loops from a quarter of a beat to 16 beats, half and double, and loop roll
+- **Mixer:** trim, three band EQ with kills, filter, level meters, limiter, three crossfader curves with reverse, and a split cue mode for a splitter cable
+- **Effects and pads:** echo, reverb, flanger, bit crush, stutter and vinyl crackle, with an amount knob. Two banks of pads with 12 drum sounds and chop pads cut from your songs
+- Record the performance as a `.wav`
+
+Each deck loads about two and a half minutes of a song, starting where you choose. The speed reading is an estimate, so use the beat grid buttons if it is slightly off.
 
 ## Audio editor
 
